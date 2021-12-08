@@ -5,6 +5,7 @@ import com.example.shoppingcart.repository.CustomerRepositoy;
 import com.example.shoppingcart.repository.helper.ExcelHelper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,20 +20,27 @@ import java.util.stream.StreamSupport;
 @Service
 public class ShoppingCartService
 {
+    @Autowired
 CustomerRepositoy repositoy;
 public void save(MultipartFile file)
 {
     try {
-        List<Customer> tutorials = ExcelHelper.excelToCustomer(file.getInputStream());
-        repositoy.saveAll(tutorials);
+        List<Customer> customers= ExcelHelper.excelToCustomer(file.getInputStream());
+        repositoy.saveAll(customers);
+
     } catch (IOException e) {
         throw new RuntimeException("fail to store excel data: " + e.getMessage());
     }
 }
-    public List<Customer> getAllTutorials() {
+    public List<Customer> getAllCustomers() {
         return repositoy.findAll();
     }
+    public Customer CreateCustomer(Customer customer)
+    {
+        return repositoy.save(customer) ;
+    }
 }
+
 
 
 

@@ -7,10 +7,7 @@ import com.example.shoppingcart.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -20,7 +17,7 @@ import java.util.List;
 public class ShoppingCartController
 {
     @Autowired
-    private  ShoppingCartService shoppingCartService;
+    ShoppingCartService shoppingCartService;
     public ShoppingCartController(ShoppingCartService shoppingCartService)
     {
         this.shoppingCartService=shoppingCartService;
@@ -30,13 +27,14 @@ public class ShoppingCartController
 //        shoppingCartService.fileupload(file);
 //    }
     @PostMapping("/upload")
+    @ResponseBody
     public ResponseEntity<ResponceMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (ExcelHelper.hasExcelFormat(file)) {
+        if (ExcelHelper.hasExcelFormat(file))
+        {
             try {
                 shoppingCartService.save(file);
-
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponceMessage(message));
             } catch (Exception e) {
@@ -44,15 +42,19 @@ public class ShoppingCartController
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponceMessage(message));
             }
         }
-
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponceMessage(message));
     }
-
+    @PostMapping("/addcustomer")
+@ResponseBody
+public Customer add(@RequestBody Customer customer)
+{
+   return shoppingCartService.CreateCustomer(customer);
+}
     @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllTutorials() {
+    public ResponseEntity<List<Customer>> getAllCustomers() {
         try {
-            List<Customer> customers = shoppingCartService.getAllTutorials();
+            List<Customer> customers = shoppingCartService.getAllCustomers();
 
             if (customers.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

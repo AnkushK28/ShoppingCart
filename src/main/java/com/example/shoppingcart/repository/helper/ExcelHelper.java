@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,6 @@ import java.util.List;
 public class ExcelHelper
 {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    static String[] HEADERs = { "Id", "name", "phone", "email","address" };
     static String SHEET = "customer";
 
     public static boolean hasExcelFormat(MultipartFile file) {
@@ -28,8 +28,8 @@ public class ExcelHelper
     }
     public static List<Customer> excelToCustomer(InputStream is) {
         try {
-            Workbook workbook=new XSSFWorkbook(is);
-        Sheet sheet = workbook.getSheet(SHEET);
+            XSSFWorkbook workbook=new XSSFWorkbook(is);
+        XSSFSheet sheet = workbook.getSheet(SHEET);
             Iterator<Row> rows = sheet.iterator();
 
             List<Customer> customers = new ArrayList<Customer>();
@@ -37,8 +37,6 @@ public class ExcelHelper
             int rowNumber = 0;
             while (rows.hasNext()) {
                 Row currentRow = rows.next();
-
-                // skip header
                 if (rowNumber == 0) {
                     rowNumber++;
                     continue;
@@ -52,8 +50,8 @@ public class ExcelHelper
                     Cell currentCell = cellsInRow.next();
 
                     switch (cellIdx) {
-                        case 0:
-//                            customer.setCustomerId((long) currentCell.getNumericCellValue());
+//                        case 0:
+////                            customer.setCustomerId((long) currentCell.getNumericCellValue());
 //                            break;
 
                         case 1:
@@ -87,6 +85,7 @@ public class ExcelHelper
         } catch (IOException e) {
             throw new RuntimeException("fail to parse Excel file: " + e.getMessage());
         }
+
     }
 
 
