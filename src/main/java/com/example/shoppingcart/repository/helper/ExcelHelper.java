@@ -3,8 +3,6 @@ package com.example.shoppingcart.repository.helper;
 import com.example.shoppingcart.model.Customer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,21 +13,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ExcelHelper
-{
+public class ExcelHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     static String SHEET = "customer";
 
     public static boolean hasExcelFormat(MultipartFile file) {
-        if (!TYPE.equals(file.getContentType())) {
-            return false;
-        }
-        return true;
+        return TYPE.equals(file.getContentType());
     }
+
     public static List<Customer> excelToCustomer(InputStream is) {
         try {
-            XSSFWorkbook workbook=new XSSFWorkbook(is);
-        XSSFSheet sheet = workbook.getSheet(SHEET);
+            XSSFWorkbook workbook = new XSSFWorkbook(is);
+            XSSFSheet sheet = workbook.getSheet(SHEET);
             Iterator<Row> rows = sheet.iterator();
 
             List<Customer> customers = new ArrayList<Customer>();
@@ -50,10 +45,6 @@ public class ExcelHelper
                     Cell currentCell = cellsInRow.next();
 
                     switch (cellIdx) {
-//                        case 0:
-////                            customer.setCustomerId((long) currentCell.getNumericCellValue());
-//                            break;
-
                         case 1:
                             customer.setName(currentCell.getStringCellValue());
                             break;
@@ -87,8 +78,6 @@ public class ExcelHelper
         }
 
     }
-
-
 
 
 }
