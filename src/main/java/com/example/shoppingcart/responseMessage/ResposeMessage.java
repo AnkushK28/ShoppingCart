@@ -1,10 +1,10 @@
-package com.example.shoppingcart.responceMessage;
+package com.example.shoppingcart.responseMessage;
 
-public class ResponceMessage
+public class ResposeMessage
 {
     private String message;
 
-    public ResponceMessage(String message) {
+    public ResposeMessage(String message) {
     }
 
     public void ResponseMessage(String message) {

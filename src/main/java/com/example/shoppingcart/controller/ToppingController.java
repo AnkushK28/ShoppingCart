@@ -1,36 +1,35 @@
 package com.example.shoppingcart.controller;
 
-import com.example.shoppingcart.model.Customer;
-import com.example.shoppingcart.repository.helper.ExcelHelper;
+import com.example.shoppingcart.model.Topping;
+import com.example.shoppingcart.repository.ToppingRepository;
+import com.example.shoppingcart.repository.helper.ToppingHelper;
 import com.example.shoppingcart.responseMessage.ResposeMessage;
-import com.example.shoppingcart.service.ShoppingCartService;
+import com.example.shoppingcart.service.ToppingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
-
-
 @RestController
-public class ShoppingCartController
+public class ToppingController
 {
     @Autowired
-    ShoppingCartService shoppingCartService;
-//    @PostMapping("/upload")
-//    public void upload(@RequestParam("file") MultipartFile file) throws Exception {
-//        shoppingCartService.fileupload(file);
-//    }
-    @PostMapping("/upload")
+    ToppingService toppingService;
+
+    @Autowired
+    ToppingRepository toppingRepository;
+
+    @PostMapping("/uploadTopping")
     @ResponseBody
-    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("toppings") MultipartFile file) {
         String message = "";
 
-        if (ExcelHelper.hasExcelFormat(file))
+        if (ToppingHelper.hasExcelFormat(file))
         {
             try {
-                shoppingCartService.save(file);
+                toppingService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResposeMessage(message));
             } catch (Exception e) {
@@ -41,22 +40,23 @@ public class ShoppingCartController
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResposeMessage(message));
     }
-    @PostMapping("/addcustomer")
-@ResponseBody
-public Customer add(@RequestBody Customer customer)
-{
-   return shoppingCartService.CreateCustomer(customer);
-}
-    @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    @GetMapping("/allToppings")
+    public ResponseEntity<List<Topping>> getAllPizza() {
         try {
-            List<Customer> customers = shoppingCartService.getAllCustomers();
-            if (customers.isEmpty()) {
+            List<Topping> toppings= toppingService.getAllToppings();
+
+            if (toppings.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(customers, HttpStatus.OK);
+            return new ResponseEntity<>(toppings,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    @GetMapping("/topping/{name}")
+//    public ResponseEntity<List<Topping>> getToppingByName(@PathVariable String name)
+//    {
+//        return new ResponseEntity<List<Topping>>((List<Topping>) toppingRepository.findByToppingName(name), HttpStatus.OK);
+//    }
 }
