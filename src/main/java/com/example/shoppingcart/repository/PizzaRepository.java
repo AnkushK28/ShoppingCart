@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface PizzaRepository extends JpaRepository<Pizza, Integer>
 {
-    List<Pizza> findByPizzaName(String pizzaName);
-    List<Pizza> findPizzaByPizzaType(String pizzaType);
+
+    Pizza findByPizzaName(String pizzaName);
+    List<Pizza> findByPizzaType(String pizzaType);
 }

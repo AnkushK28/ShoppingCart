@@ -26,9 +26,7 @@ public class ExcelHelper {
             XSSFWorkbook workbook = new XSSFWorkbook(is);
             XSSFSheet sheet = workbook.getSheet(SHEET);
             Iterator<Row> rows = sheet.iterator();
-
             List<Customer> customers = new ArrayList<Customer>();
-
             int rowNumber = 0;
             while (rows.hasNext()) {
                 Row currentRow = rows.next();
@@ -37,9 +35,7 @@ public class ExcelHelper {
                     continue;
                 }
                 Iterator<Cell> cellsInRow = currentRow.iterator();
-
                 Customer customer = new Customer();
-
                 int cellIdx = 0;
                 while (cellsInRow.hasNext()) {
                     Cell currentCell = cellsInRow.next();

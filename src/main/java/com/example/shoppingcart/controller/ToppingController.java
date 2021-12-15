@@ -21,7 +21,7 @@ public class ToppingController
     @Autowired
     ToppingRepository toppingRepository;
 
-    @PostMapping("/uploadTopping")
+    @PostMapping("/uploadtopping")
     @ResponseBody
     public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("toppings") MultipartFile file) {
         String message = "";
@@ -40,7 +40,7 @@ public class ToppingController
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResposeMessage(message));
     }
-    @GetMapping("/allToppings")
+    @GetMapping("/alltoppings")
     public ResponseEntity<List<Topping>> getAllPizza() {
         try {
             List<Topping> toppings= toppingService.getAllToppings();

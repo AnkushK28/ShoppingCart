@@ -26,7 +26,6 @@ public class ShoppingCartController
     @ResponseBody
     public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
-
         if (ExcelHelper.hasExcelFormat(file))
         {
             try {

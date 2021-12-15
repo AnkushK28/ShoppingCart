@@ -1,5 +1,6 @@
 package com.example.shoppingcart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Topping {
         private float price;
 
         @ManyToMany(targetEntity = Pizza.class, mappedBy = "toppings", cascade = CascadeType.ALL)
-
+        @JsonIgnore
         private List<Pizza> pizzas;
+
 }

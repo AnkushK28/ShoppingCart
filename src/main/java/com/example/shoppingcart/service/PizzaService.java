@@ -3,6 +3,7 @@ package com.example.shoppingcart.service;
 import com.example.shoppingcart.model.Customer;
 import com.example.shoppingcart.model.Pizza;
 import com.example.shoppingcart.repository.PizzaRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,8 +17,14 @@ public class PizzaService
     {
         return pizzaRepository.save(pizza) ;
     }
-    public List<Pizza> getAllPizza() {
+    public List<Pizza> getAllPizza()
+    {
         return pizzaRepository.findAll();
+    }
+
+    public Pizza getByPizzaName(String name)
+    {
+        return pizzaRepository.findByPizzaName(name);
     }
 //    public Pizza getpizza(String pizzaName)
 //    {
