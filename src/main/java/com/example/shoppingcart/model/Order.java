@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Data
-@Table(name="orders")
+@Table(name="order")
 public class Order
 {
+
     @Id
     @Column(name = "order_id", nullable = false)
     private Long orderId;
@@ -26,15 +27,10 @@ public class Order
 
     private LocalDate date;
 
-    @ManyToOne
+  @OneToMany
     @JoinColumn(name = "pizza_id")
-    private Pizza pizza;
+  private List<Pizza> pizza;
 
-    public Pizza getPizza() {
-        return pizza;
-    }
 
-    public void setPizza(Pizza pizza) {
-        this.pizza = pizza;
-    }
+
 }

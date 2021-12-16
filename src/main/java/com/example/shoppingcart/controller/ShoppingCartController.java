@@ -16,18 +16,21 @@ import java.util.List;
 @RestController
 public class ShoppingCartController
 {
-    @Autowired
-    ShoppingCartService shoppingCartService;
-//    @PostMapping("/upload")
-//    public void upload(@RequestParam("file") MultipartFile file) throws Exception {
+     @Autowired
+     ShoppingCartService shoppingCartService;
+
+//   @PostMapping("/upload")
+//    public void upload(@RequestParam("file") MultipartFile file) throws Exception
+//    {
 //        shoppingCartService.fileupload(file);
 //    }
+
 
     @PostMapping("/upload")
     @ResponseBody
     public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("file") MultipartFile file) {
-        String message = "";
-        if (ExcelHelper.hasExcelFormat(file))
+        String message = "" ;
+        if(ExcelHelper.hasExcelFormat(file))
         {
             try {
                 shoppingCartService.save(file);
@@ -41,6 +44,7 @@ public class ShoppingCartController
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResposeMessage(message));
     }
+
     @PostMapping("/addcustomer")
 @ResponseBody
 public Customer add(@RequestBody Customer customer)

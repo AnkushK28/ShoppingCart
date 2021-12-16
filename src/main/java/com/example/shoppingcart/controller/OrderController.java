@@ -40,11 +40,13 @@ public class OrderController
         order.setDate(LocalDate.now());
         return orderService.save(order);
     }
+
     @PostMapping("/bookpizzaorders")  //http://localhost:1220/pizzaorders/bookpizzaorders
-    public ResponseEntity<Boolean> bookpizzaorder(@RequestBody Order order)
+    public ResponseEntity<Boolean> bookPizzaOrder(@RequestBody Order order)
     {
         Order entity =orderService.bookPizzaOrder(order);
         ResponseEntity<Boolean> responseEntity=new ResponseEntity<>(true, HttpStatus.OK);
         return responseEntity;
     }
+
 }

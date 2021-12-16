@@ -24,15 +24,18 @@ public class ShoppingCartService
 CustomerRepositoy repositoy;
 public void save(MultipartFile file)
 {
-    try {
+    try
+    {
         List<Customer> customers= ExcelHelper.excelToCustomer(file.getInputStream());
         repositoy.saveAll(customers);
-
-    } catch (IOException e) {
+    }
+    catch(IOException e)
+    {
         throw new RuntimeException("fail to store excel data: " + e.getMessage());
     }
 }
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getAllCustomers()
+    {
         return repositoy.findAll();
     }
     public Customer CreateCustomer(Customer customer)
