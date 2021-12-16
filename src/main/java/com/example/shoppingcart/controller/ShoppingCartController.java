@@ -22,6 +22,7 @@ public class ShoppingCartController
 //    public void upload(@RequestParam("file") MultipartFile file) throws Exception {
 //        shoppingCartService.fileupload(file);
 //    }
+
     @PostMapping("/upload")
     @ResponseBody
     public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -47,7 +48,8 @@ public Customer add(@RequestBody Customer customer)
    return shoppingCartService.CreateCustomer(customer);
 }
     @GetMapping("/customer")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<Customer>> getAllCustomers()
+    {
         try {
             List<Customer> customers = shoppingCartService.getAllCustomers();
             if (customers.isEmpty()) {

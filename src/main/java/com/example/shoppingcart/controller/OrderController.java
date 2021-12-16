@@ -6,16 +6,18 @@ import com.example.shoppingcart.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
-
+@RestController
+@RequestMapping("/order")
 public class OrderController
 {
     @Autowired
     OrderService orderService;
-    @GetMapping("/allorders")
-    public ResponseEntity<List<Order>> getAllPizza() {
+    @GetMapping
+    public ResponseEntity<List<Order>> getAllOrder() {
         try {
             List<Order> orders= orderService.getAllOrder();
 
@@ -26,5 +28,23 @@ public class OrderController
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @PostMapping("/makeorder")
+    public Order makeOrder(@RequestParam("customerID") Long customerID,@RequestParam("status") String status, @RequestParam("finalPrice") Double finalPrice)
+    {
+        Order order= new Order();
+        order.setFinalPrice(finalPrice);
+        order.setStatus(status);
+//        order.setPizzaID(pizzaID);
+        order.setCustomerID(customerID);
+        order.setDate(LocalDate.now());
+        return orderService.save(order);
+    }
+    @PostMapping("/bookpizzaorders")  //http://localhost:1220/pizzaorders/bookpizzaorders
+    public ResponseEntity<Boolean> bookpizzaorder(@RequestBody Order order)
+    {
+        Order entity =orderService.bookPizzaOrder(order);
+        ResponseEntity<Boolean> responseEntity=new ResponseEntity<>(true, HttpStatus.OK);
+        return responseEntity;
     }
 }

@@ -13,5 +13,8 @@ public interface PizzaRepository extends JpaRepository<Pizza, Integer>
 {
 
     Pizza findByPizzaName(String pizzaName);
-    List<Pizza> findByPizzaType(String pizzaType);
+
+    //Pizza findByPizzaType(String pizzaType);
+   List<Pizza> findByPizzaType(String pizzaType);
+
 }

@@ -62,16 +62,22 @@ public class PizzaController
 //    @GetMapping("/findpizzabyname/{name}")
 //    public ResponseEntity<List<Pizza>> getPizzaByName(@PathVariable String name)
 //    {
-//        return new ResponseEntity<>(pizzaRepository.findByPizzaName(name), HttpStatus.OK);
+//       return new ResponseEntity<>(pizzaRepository.findByPizzaName(name), HttpStatus.OK);
 //    }
     @GetMapping("/{pizzaType}")
-    public ResponseEntity<List<Pizza>> getPizzaByPizzaType(@PathVariable String PizzaType)
+    public List<Pizza> getPizzaByPizzaType(@PathVariable String pizzaType)
     {
-        return new ResponseEntity<>(pizzaRepository.findByPizzaType(PizzaType), HttpStatus.OK);
+        return pizzaService.getByPizzType(pizzaType);
     }
-    @GetMapping("/{name}")
-    public Pizza getPizzaByName(@PathVariable String name) throws IOException, InvalidFormatException {
+    @GetMapping("/name/{name}")
+    public Pizza getPizzaByName(@PathVariable String name) throws IOException, InvalidFormatException
+    {
         return pizzaService.getByPizzaName(name);
     }
-
+    @PutMapping
+    @ResponseBody
+    public Pizza updateEmployee(@RequestBody Pizza pizza)
+    {
+        return pizzaService.update(pizza);
+    }
 }

@@ -25,6 +25,7 @@ public class Pizza implements Serializable {
     @ManyToMany(targetEntity = Topping.class,cascade = CascadeType.ALL )
     private List<Topping> toppings;
 
+
 //    @ManyToOne
 //    @JoinColumn(name = "order_Id")
 //    private Order order;
