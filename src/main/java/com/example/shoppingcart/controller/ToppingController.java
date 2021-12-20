@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 @RestController
+@RequestMapping("/Topping")
 public class ToppingController
 {
+
     @Autowired
     ToppingService toppingService;
 
@@ -23,16 +25,19 @@ public class ToppingController
 
     @PostMapping("/uploadtopping")
     @ResponseBody
-    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("toppings") MultipartFile file) {
-        String message = "";
 
+    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("toppings") MultipartFile file) {
+        String message = " ";
         if (ToppingHelper.hasExcelFormat(file))
         {
-            try {
+            try
+            {
                 toppingService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResposeMessage(message));
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 message = "Could not upload the file: " + file.getOriginalFilename() + "!";
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResposeMessage(message));
             }
