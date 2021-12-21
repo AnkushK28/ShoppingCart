@@ -44,9 +44,9 @@ public class ToppingHelper
                     Topping toppings= new Topping();
 
                     int cellIdx = 0;
-                    while (cellsInRow.hasNext()) {
+                    while (cellsInRow.hasNext())
+                    {
                         Cell currentCell = cellsInRow.next();
-
                         switch (cellIdx) {
                             case 1:
                                 toppings.setToppingName(currentCell.getStringCellValue());

@@ -19,13 +19,17 @@ public class OrderController
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrder() {
         try {
+
             List<Order> orders= orderService.getAllOrder();
 
-            if (orders.isEmpty()) {
+            if (orders.isEmpty())
+            {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(orders,HttpStatus.OK);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -37,10 +41,9 @@ public class OrderController
         order.setStatus(status);
 //        order.setPizzaID(pizzaID);
         order.setCustomerID(customerID);
-        order.setDate(LocalDate.now());
+      //  order.setDate(LocalDate.now());
         return orderService.save(order);
     }
-
     @PostMapping("/bookpizzaorders")  //http://localhost:1220/pizzaorders/bookpizzaorders
     public ResponseEntity<Boolean> bookPizzaOrder(@RequestBody Order order)
     {

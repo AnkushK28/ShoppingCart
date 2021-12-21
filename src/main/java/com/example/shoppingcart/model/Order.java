@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Data
-@Table(name="order")
+@Table(name="orders")
 public class Order
 {
 
@@ -19,17 +19,17 @@ public class Order
 
     @Column(name = "status")
     private String status;
-
     private Long customerID;
+
 //    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name="id")
 //    private List<Pizza> pizza;
 
     private LocalDate date;
-
-  @OneToMany
-    @JoinColumn(name = "pizza_id")
-  private List<Pizza> pizza;
+//
+//  @OneToMany
+//    @JoinColumn(name = "pizza_id")
+//  private List<Pizza> pizza;
 
 
 
