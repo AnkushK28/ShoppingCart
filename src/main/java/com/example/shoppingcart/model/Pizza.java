@@ -1,5 +1,6 @@
 package com.example.shoppingcart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class Pizza implements Serializable {
     private float price;
     @ManyToMany(targetEntity = Topping.class,cascade = CascadeType.ALL )
     private List<Topping> toppings;
+
+
 //    @ManyToOne
 //    @JoinColumn(name = "order_Id")
 //    private Order order;

@@ -6,7 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Customer {
+public class Customer
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long customerID;
@@ -14,7 +15,5 @@ public class Customer {
     private long phone;
     private String email;
     private String address;
-
-
 
 }
