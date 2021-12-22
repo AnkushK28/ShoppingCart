@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -31,7 +32,7 @@ public class CustomerController
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ResposeMessage> uploadFile(@Valid @RequestParam("file") MultipartFile file) {
         String message = " " ;
         if(ExcelHelper.hasExcelFormat(file))
         {

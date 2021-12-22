@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import javax.validation.Valid;
 import java.util.List;
+
 @RestController
 @RequestMapping("/Topping")
 public class ToppingController
@@ -25,8 +27,7 @@ public class ToppingController
 
     @PostMapping("/uploadtopping")
     @ResponseBody
-
-    public ResponseEntity<ResposeMessage> uploadFile(@RequestParam("toppings") MultipartFile file) {
+    public ResponseEntity<ResposeMessage> uploadFile(@Valid @RequestParam("toppings") MultipartFile file) {
         String message = " ";
         if (ToppingHelper.hasExcelFormat(file))
         {
@@ -45,6 +46,9 @@ public class ToppingController
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResposeMessage(message));
     }
+
+
+
     @GetMapping("/alltoppings")
     public ResponseEntity<List<Topping>> getAllPizza() {
         try {

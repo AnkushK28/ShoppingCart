@@ -7,6 +7,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,11 +41,11 @@ public class ExcelHelper {
                 Iterator<Cell> cellsInRow = currentRow.iterator();
                 Customer customer = new Customer();
                 int cellIdx = 0;
-                while (cellsInRow.hasNext()) {
+                while (cellsInRow.hasNext())
+                {
                     Cell currentCell = cellsInRow.next();
                     switch (cellIdx)
                     {
-
                         case 1:
                             customer.setName(currentCell.getStringCellValue());
                             break;
@@ -56,9 +58,8 @@ public class ExcelHelper {
                         case 4:
                             customer.setAddress(currentCell.getStringCellValue());
                             break;
-                        default:
-
-
+                            default:
+                            break;
                     }
                     cellIdx++;
                 }
