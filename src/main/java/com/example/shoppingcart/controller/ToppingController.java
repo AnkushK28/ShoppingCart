@@ -1,11 +1,9 @@
 package com.example.shoppingcart.controller;
-
 import com.example.shoppingcart.model.Topping;
 import com.example.shoppingcart.repository.ToppingRepository;
 import com.example.shoppingcart.repository.helper.ToppingHelper;
 import com.example.shoppingcart.responseMessage.ResposeMessage;
 import com.example.shoppingcart.service.ToppingService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ public class ToppingController
     @Autowired
     ToppingRepository toppingRepository;
 
-    @PostMapping("/uploadtopping")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<ResposeMessage> uploadFile(@Valid @RequestParam("toppings") MultipartFile file) {
         String message = " ";
@@ -49,7 +47,7 @@ public class ToppingController
 
 
 
-    @GetMapping("/alltoppings")
+    @GetMapping
     public ResponseEntity<List<Topping>> getAllPizza() {
         try {
             List<Topping> toppings= toppingService.getAllToppings();

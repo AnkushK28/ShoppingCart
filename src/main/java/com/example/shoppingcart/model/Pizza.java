@@ -1,7 +1,9 @@
 package com.example.shoppingcart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,8 +17,10 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Pizza implements Serializable {
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class Pizza implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;

@@ -1,5 +1,5 @@
-package com.example.shoppingcart.controller;
 
+package com.example.shoppingcart.controller;
 import com.example.shoppingcart.model.Order;
 import com.example.shoppingcart.model.Pizza;
 import com.example.shoppingcart.service.OrderService;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController
@@ -17,11 +17,11 @@ public class OrderController
     @Autowired
     OrderService orderService;
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrder() {
-        try {
-
+    public ResponseEntity<List<Order>> getAllOrder()
+    {
+        try
+        {
             List<Order> orders= orderService.getAllOrder();
-
             if (orders.isEmpty())
             {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
